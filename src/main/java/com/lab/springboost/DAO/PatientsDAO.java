@@ -1,0 +1,12 @@
+package com.lab.springboost.DAO;
+
+import com.lab.springboost.entity.PatientEntity;
+
+import java.util.List;
+
+public interface PatientsDAO {
+    void addPatient(PatientEntity patient);
+    void removePatient(PatientEntity patient);
+    void editPatient(PatientEntity patient);
+    List<PatientEntity> allPatients();
+}

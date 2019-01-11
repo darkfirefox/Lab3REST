@@ -1,0 +1,12 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tr th:each="patient : ${patients}">
+    <td th:text="${patient.firstname}">1</td>
+    <td th:text="${patient.lastname}">Text ...</td>
+</tr>
+</body>
+</html>
