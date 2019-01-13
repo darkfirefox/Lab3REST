@@ -16,6 +16,7 @@ public class PrescriptionEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -58,11 +59,11 @@ public class PrescriptionEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PrescriptionEntity that = (PrescriptionEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(datetime, that.datetime) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(priority, that.priority);
+        PrescriptionEntity entity = (PrescriptionEntity) o;
+        return Objects.equals(id, entity.id) &&
+                Objects.equals(datetime, entity.datetime) &&
+                Objects.equals(description, entity.description) &&
+                Objects.equals(priority, entity.priority);
     }
 
     @Override

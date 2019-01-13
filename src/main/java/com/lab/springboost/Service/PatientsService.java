@@ -2,7 +2,6 @@ package com.lab.springboost.Service;
 
 import com.google.common.collect.Lists;
 import com.lab.springboost.DAO.PatientsDAO;
-import com.lab.springboost.Repository.DoctorsRepository;
 import com.lab.springboost.Repository.PatientsRepository;
 import com.lab.springboost.entity.PatientEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,11 @@ public class PatientsService implements PatientsDAO {
     @Override
     public void editPatient(PatientEntity patient) {
         patientsRepository.save(patient);
+    }
+
+    @Override
+    public PatientEntity findById(Integer id) {
+        return  patientsRepository.findById(id);
     }
 
     @Override

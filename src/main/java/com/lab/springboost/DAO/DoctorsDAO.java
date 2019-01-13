@@ -8,6 +8,7 @@ public interface DoctorsDAO {
     void addDoctor(DoctorEntity doctor);
     void removeDoctor(DoctorEntity doctor);
     void editDoctor(DoctorEntity doctor);
-    int prescriptionOfDoctor(DoctorEntity doctor);
+    DoctorEntity findById(Integer id);
+    Integer prescriptionOfDoctor(Integer id);
     List<DoctorEntity> allDoctors();
 }

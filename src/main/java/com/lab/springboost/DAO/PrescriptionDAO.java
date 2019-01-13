@@ -1,12 +1,14 @@
 package com.lab.springboost.DAO;
 
 import com.lab.springboost.entity.PrescriptionEntity;
+import com.lab.springboost.model.PrescriptionModel;
 
 import java.util.List;
 
 public interface PrescriptionDAO {
-    void addPrescription(PrescriptionEntity prescription);
-    void removePrescription(PrescriptionEntity prescription);
-    void editPrescription(PrescriptionEntity prescription);
-    List<PrescriptionEntity> allPrescription(PrescriptionEntity prescription);
+    void addPrescription(PrescriptionModel prescription);
+    void removePrescription(PrescriptionModel prescription);
+    void editPrescription(PrescriptionModel prescription);
+    List<PrescriptionEntity> allPrescription();
+    List<PrescriptionEntity> filtered(PrescriptionModel prescription);
 }

@@ -14,6 +14,7 @@ public class PatientEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -78,5 +79,13 @@ public class PatientEntity {
     public int hashCode() {
 
         return Objects.hash(id, firstname, fathername, lastname, phone);
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append(id).append(' ')
+                .append(firstname).append(' ')
+                .append(fathername).append(' ')
+                .append(lastname).toString();
     }
 }

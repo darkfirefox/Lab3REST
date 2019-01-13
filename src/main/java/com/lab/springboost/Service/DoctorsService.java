@@ -3,6 +3,7 @@ package com.lab.springboost.Service;
 import com.google.common.collect.Lists;
 import com.lab.springboost.DAO.DoctorsDAO;
 import com.lab.springboost.Repository.DoctorsRepository;
+import com.lab.springboost.Repository.PrescriptionsRepository;
 import com.lab.springboost.entity.DoctorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ import java.util.List;
 public class DoctorsService implements DoctorsDAO {
     @Autowired
     private DoctorsRepository doctorsRepository;
+
+    @Autowired
+    private PrescriptionsRepository prescriptionsRepository;
 
     @Override
     public void addDoctor(DoctorEntity doctor) {
@@ -32,9 +36,13 @@ public class DoctorsService implements DoctorsDAO {
     }
 
     @Override
-    public int prescriptionOfDoctor(DoctorEntity doctor) {
-        //To-do
-        return 0;
+    public DoctorEntity findById(Integer id) {
+        return doctorsRepository.findById(id);
+    }
+
+    @Override
+    public Integer prescriptionOfDoctor(Integer id) {
+        return prescriptionsRepository.countByDoctorByIddoctor_Id(id);
     }
 
     @Override

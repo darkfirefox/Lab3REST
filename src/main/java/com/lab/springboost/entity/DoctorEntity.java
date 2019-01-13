@@ -14,6 +14,7 @@ public class DoctorEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -79,4 +80,13 @@ public class DoctorEntity {
 
         return Objects.hash(id, firstname, fathername, lastname, specification);
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append(id).append(' ')
+                .append(firstname).append(' ')
+                .append(fathername).append(' ')
+                .append(lastname).toString();
+    }
+
 }

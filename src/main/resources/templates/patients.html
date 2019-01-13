@@ -1,12 +1,161 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- MDBootstrap Datatables  -->
+    <link th:href="@{/MDB/css/addons/datatables.min.css}" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <body>
-<tr th:each="patient : ${patients}">
-    <td th:text="${patient.firstname}">1</td>
-    <td th:text="${patient.lastname}">Text ...</td>
-</tr>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">ЛР 2</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/patients}">Пациенты</a></li>
+            <li><a th:href="@{/doctors}">Доктора</a></li>
+            <li><a th:href="@{/prescriptions}">Рецепты</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+    Добавить пациента
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Новый пациент</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="crudForm" th:action="@{/patients/add}" th:object="${crudPatient}" method="post">
+                    <input type="number" hidden id="id" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="firstname">Имя</label>
+                        <input type="text" class="form-control" id="firstname" placeholder="Введите имя" th:field="*{firstname}" required pattern="[А-ЯЁ]{1}[а-яё]+">
+                    </div>
+                    <div class="form-group">
+                        <label for="fathername">Отчество</label>
+                        <input type="text" class="form-control" id="fathername" placeholder="Введите отчетво" th:field="*{fathername}" required pattern="[А-ЯЁ]{1}[а-яё]+">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Фамилия</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="Введите фамилию" th:field="*{lastname}" required pattern="[А-ЯЁ]{1}[а-яё]+">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Введите телефон" th:field="*{phone}" required pattern="^((\+7|7|8)+([0-9]){10})$">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <button type="submit" class="btn btn-primary">ОК</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование пациент</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/patients/edit}" th:object="${crudPatient}" method="post">
+                    <input type="number" hidden id="idEdit" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="firstnameEdit">Имя</label>
+                        <input type="text" class="form-control" id="firstnameEdit" placeholder="Введите имя" th:field="*{firstname}" required pattern="[А-ЯЁ]{1}[а-яё]+">
+                    </div>
+                    <div class="form-group">
+                        <label for="fathernameEdit">Отчество</label>
+                        <input type="text" class="form-control" id="fathernameEdit" placeholder="Введите отчетво" th:field="*{fathername}" required pattern="[А-ЯЁ]{1}[а-яё]+">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastnameEdit">Фамилия</label>
+                        <input type="text" class="form-control" id="lastnameEdit" placeholder="Введите фамилию" th:field="*{lastname}" required pattern="[А-ЯЁ]{1}[а-яё]+">
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneEdit">Телефон</label>
+                        <input type="tel" class="form-control" id="phoneEdit" placeholder="Введите телефон" th:field="*{phone}" required pattern="^((\+7|7|8)+([0-9]){10})$">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <button type="submit" class="btn btn-primary">ОК</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="#" th:action="@{/patients/remove}" th:object="${crudPatient}" method="post"  hidden name="removePatient">
+    <input id="idDel" th:field="*{id}">
+    <input id="firstnameDel" th:field="*{firstname}">
+    <input id="fathernameDel" th:field="*{fathername}">
+    <input id="lastnameDel" th:field="*{lastname}">
+    <input id="phoneDel" th:field="*{phone}">
+    <button type="submit">OK</button>
+</form>
+
+<table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" id="dtBasicExample">
+    <thead>
+        <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Отчество</th>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Телефон</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="patient : ${patients}" th:id="'patientId-'+${patient.id}">
+            <td  scope="row" th:text="${patient.firstname}"></td>
+            <td  scope="row" th:text="${patient.fathername}"></td>
+            <td  scope="row" th:text="${patient.lastname}"></td>
+            <td  scope="row" th:text="${patient.phone}"></td>
+            <td>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal" th:data-patient-id="${patient.id}">Изменить</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-link" th:data-patient-id="${patient.id}" th:onclick="'deleteRow('+${patient.id}+')'">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script th:src="@{/patients.js}"></script>
+<!-- MDBootstrap Datatables  -->
+<script type="text/javascript" th:src="@{/MDB/js/addons/datatables.min.js}"></script>
 </body>
 </html>

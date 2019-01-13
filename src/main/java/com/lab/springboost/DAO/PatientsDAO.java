@@ -8,5 +8,6 @@ public interface PatientsDAO {
     void addPatient(PatientEntity patient);
     void removePatient(PatientEntity patient);
     void editPatient(PatientEntity patient);
+    PatientEntity findById(Integer id);
     List<PatientEntity> allPatients();
 }
