@@ -1,15 +1,26 @@
 package com.lab.springboost.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @Entity
 @Table(name = "patient", schema = "public", catalog = "pavel")
+@XmlRootElement(name = "patient")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PatientEntity {
+    @XmlElement
     private Integer id;
+    @XmlElement
     private String firstname;
+    @XmlElement
     private String fathername;
+    @XmlElement
     private String lastname;
+    @XmlElement
     private String phone;
 
     @Id
