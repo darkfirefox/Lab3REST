@@ -8,21 +8,21 @@ import java.util.List;
 
 @XmlRootElement(name = "patients")
 public class PatientsListWrapper {
-    private List<PatientEntity> patinets;
+    private List<PatientEntity> patients;
 
     public PatientsListWrapper() {
     }
 
-    public PatientsListWrapper(List<PatientEntity> patinets) {
-        this.patinets = patinets;
+    public PatientsListWrapper(List<PatientEntity> patients) {
+        this.patients = patients;
     }
 
-
-    public List<PatientEntity> getPatinets() {
-        return patinets;
+    @XmlElement(name = "patient")
+    public List<PatientEntity> getPatients() {
+        return patients;
     }
 
-    public void setPatinets(List<PatientEntity> patinets) {
-        this.patinets = patinets;
+    public void setPatients(List<PatientEntity> patinets) {
+        this.patients = patinets;
     }
 }
