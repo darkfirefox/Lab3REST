@@ -25,7 +25,7 @@ public class PrescriptionsRestController {
 
     @RequestMapping(value = "/prescriptions",
             method = RequestMethod.GET,
-            produces = { TEXT_XML_VALUE })
+            produces = { TEXT_HTML_VALUE })
     public ResponseEntity getXsl() throws JAXBException, TransformerException {
         PrescriptionsListWrapper allPrescriptions = new PrescriptionsListWrapper(prescriptionDAO.allPrescription());
         return ResponseEntity.ok().body(transform.transform(PrescriptionsListWrapper.class,allPrescriptions,XSL_Path));

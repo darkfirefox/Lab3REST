@@ -40,7 +40,7 @@ public class DoctorsRestController {
 
     @RequestMapping(value = "/doctors",
             method = RequestMethod.GET,
-            produces = { TEXT_XML_VALUE })
+            produces = { TEXT_HTML_VALUE })
     public ResponseEntity getXsl() throws JAXBException, TransformerException {
         DoctorsListWrapper allDoctors = new DoctorsListWrapper(doctorsDAO.allDoctors());
         return ResponseEntity.ok().body(transform.transform(DoctorsListWrapper.class,allDoctors,XSL_Path));
