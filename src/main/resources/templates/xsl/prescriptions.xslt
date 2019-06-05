@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
     <xsl:output method="html" indent="yes" />
-    <xsl:template match="/*">
+    <xsl:template match="/">
         <html>
             <body>
                 <div align="center">
@@ -11,7 +11,7 @@
             </body>
         </html>
     </xsl:template>
-    <xsl:template match="patients">
+    <xsl:template match="prescriptions">
         <table border="1" width="100%">
             <tr bgcolor="#eee">
                 <th>Id</th>
@@ -21,7 +21,7 @@
                 <th>Время</th>
                 <th>Приоритет</th>
             </tr>
-            <xsl:for-each select="patient">
+            <xsl:for-each select="prescription">
                 <tr>
                     <td>
                         <xsl:value-of select="id"/>
